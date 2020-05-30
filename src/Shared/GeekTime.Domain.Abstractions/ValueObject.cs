@@ -5,6 +5,9 @@ using System.Text;
 
 namespace GeekTime.Domain
 {
+    /// <summary>
+    /// 值对象（领域模型中比较重要的一个对象）
+    /// </summary>
     public abstract class ValueObject
     {
         protected static bool EqualOperator(ValueObject left, ValueObject right)
