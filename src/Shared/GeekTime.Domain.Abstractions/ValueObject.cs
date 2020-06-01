@@ -10,9 +10,15 @@ namespace GeekTime.Domain
     /// </summary>
     public abstract class ValueObject
     {
+        /*
+         * 值对象没有id，没有关于id的定义，没有对值对象定义接口
+         * 重点：实现了它是否相等的判断   Equals、GetHashCode
+         * 
+         */
+
         protected static bool EqualOperator(ValueObject left, ValueObject right)
         {
-            if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+            if (left is null ^ right is null)
             {
                 return false;
             }

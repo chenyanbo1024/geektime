@@ -5,6 +5,9 @@ using System.Text;
 
 namespace GeekTime.Domain
 {
+    /*
+     * 可在实体上定义一些共享的方法，比如重写Tostirng
+     */
 
     public abstract class Entity : IEntity
     {
@@ -49,6 +52,12 @@ namespace GeekTime.Domain
         {
             return new object[] { Id };
         }
+
+        /// <summary>
+        /// 重写Equal，可判断两个实体对象是否相等
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Entity<TKey>))
@@ -85,6 +94,7 @@ namespace GeekTime.Domain
 
 
         //表示对象是否为全新创建的，未持久化的
+        //没有id说明未对象未持久化
         public bool IsTransient()
         {
             return EqualityComparer<TKey>.Default.Equals(Id, default);
@@ -96,6 +106,14 @@ namespace GeekTime.Domain
         }
 
 
+        //通过下面两个操作符重载，使我们可以使用操作符来判断两个领域对象是否相等
+
+        /// <summary>
+        /// 操作符 == 重载
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(Entity<TKey> left, Entity<TKey> right)
         {
             if (Object.Equals(left, null))
@@ -104,6 +122,12 @@ namespace GeekTime.Domain
                 return left.Equals(right);
         }
 
+        /// <summary>
+        /// 操作符 != 重载
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator !=(Entity<TKey> left, Entity<TKey> right)
         {
             return !(left == right);
